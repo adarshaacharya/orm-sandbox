@@ -1,0 +1,17 @@
+type AnotherUser {
+  firstname: String
+  lastname: String
+}
+
+type OneMoreUser {
+  email: ID @id
+}
+
+type TheLastUser {
+  firstName: String
+  lastName: String
+}
+
+type User {
+  email: ID @id
+}
