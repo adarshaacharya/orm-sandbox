@@ -1,4 +1,8 @@
 const express = require('express');
+const { sequelize } = require('./database/db');
+const User = require('./models/user.model');
+
+User.sync({ foce: true });
 
 const app = express();
 
