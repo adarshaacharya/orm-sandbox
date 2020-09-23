@@ -1,13 +1,12 @@
 const express = require('express');
-const { sequelize } = require('./database/db');
-const User = require('./models/user.model');
-
-User.sync({ foce: true });
+const initDB = require('./database/init');
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+initDB();
 
 // server setup
 const hostname = 'localhost';

@@ -20,17 +20,15 @@ const sequelize = new Sequelize(
   }
 );
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('🐊 Connected to database successfully.');
-  })
-  .catch((err) => {
-    console.log('🦊 Error: ' + err);
-    process.exit;
-  });
+const db = {};
 
-// sequelize.sync({
-//   force: true,
-// });
-module.exports = { sequelize, Sequelize };
+db.Sequelize = Sequelize
+db.sequelize = sequelize;
+
+db.users = require('./user.model')(sequelize, Sequelize)
+db.posts = require('./post.model')(sequelize, Sequelize)
+
+
+
+
+module.exports = db;

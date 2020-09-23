@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Sanju",
+        "email": "sanju@gmail.com",
+        "password": "12323",
+        "address": "Delhi Nepal"
+    },
+    {
+        "name": "Manoj",
+        "email": "manoj@gmail.com",
+        "password": "helloworld",
+        "address": "kathmandu"
+    },
+    {
+        "name": "Hari",
+        "email": "hari@gmail.com",
+        "password": "12323",
+        "address": "malayasia"
+    }
+]
