@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mysql2": "^2.2.5",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5"
   }
 }
