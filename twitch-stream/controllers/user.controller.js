@@ -1,8 +1,8 @@
 const db = require('../models');
-const { User } = db;
+const User = db.users;
 
 // create a new user
-export const create = async (req, res) => {
+export const CreateUser = async (req, res) => {
   try {
     const { name, email, password, phoneNumber } = req.body;
     const user = await User.create({

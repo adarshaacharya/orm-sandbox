@@ -1,22 +1,23 @@
 import Sequelize from 'sequelize';
-import dbConfig from '../config/db.config';
-import UserModel from './user.model';
+import config from '../config/db.config';
+import { userModel } from './user.model';
+import { postModel } from './post.model';
 
 const sequelize = new Sequelize(
-  `${dbConfig.DB}`,
-  `${dbConfig.USER}`,
-  `${dbConfig.PASSWORD}`,
+  `${config.DB}`,
+  `${config.USER}`,
+  `${config.PASSWORD}`,
   {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
+    host: config.HOST,
+    dialect: config.dialect,
 
     operatorsAliases: 0,
 
     pool: {
-      max: dbConfig.pool.max,
-      min: dbConfig.pool.min,
-      acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle,
+      max: config.pool.max,
+      min: config.pool.min,
+      acquire: config.pool.acquire,
+      idle: config.pool.idle,
     },
   }
 );
@@ -26,7 +27,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.users = UserModel(sequelize, Sequelize);
+db.users = userModel(sequelize, Sequelize);
+db.posts = postModel(sequelize, Sequelize);
 
-export default db;
-
+module.exports = db;
