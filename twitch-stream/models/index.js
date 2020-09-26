@@ -30,4 +30,15 @@ db.sequelize = sequelize;
 db.users = userModel(sequelize, Sequelize);
 db.posts = postModel(sequelize, Sequelize);
 
+// one user has many Posts, while each post belongs to single user -> one to many
+db.users.hasMany(db.posts, {
+  as: 'posts',
+  onDelete: 'CASCADE',
+});
+db.posts.belongsTo(db.users, {
+  foreignKey: 'userId', // if not passed automatically userId is created
+  as: 'user', // while fetching user from post it belongs
+});
+// note : defining alias helps in eager loading + includes[] works with only aliases
+
 module.exports = db;

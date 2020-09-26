@@ -1,7 +1,8 @@
 import { Router } from 'express';
 const router = Router();
-import { CreatePost } from '../controllers/post.controller';
+import { createPost, deletePostById } from '../controllers/post.controller';
 
-router.post('/', CreatePost);
+router.post('/', createPost);
 
+router.delete('/:id', deletePostById);
 export default router;
