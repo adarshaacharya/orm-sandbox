@@ -1,5 +1,7 @@
 const db = require('../models');
 const User = db.users;
+const Post = db.posts;
+const Tag = db.tags;
 
 // create a new user
 export const createUser = async (req, res) => {
@@ -17,7 +19,7 @@ export const createUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       message: 'Error in creating user',
     });
   }
@@ -31,7 +33,10 @@ export const findUserById = async (req, res) => {
       include: ['posts'],
     });
 
-    if (!user) return res.json({ message: "User of given id doesn't exists" });
+    if (!user)
+      return res
+        .staus(400)
+        .json({ message: "User of given id doesn't exists" });
 
     res.status(201).json({
       user,
@@ -71,8 +76,15 @@ export const deleteUserById = async (req, res) => {
 export const getUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      include: ['posts'],
       attributes: { exclude: ['password'] }, // except password
+
+      include: [
+        {
+          model: Post,
+          as: 'posts',
+          attributes: ['id', 'title', 'description'],
+        },
+      ],
     });
     res.status(201).json(users);
   } catch (error) {

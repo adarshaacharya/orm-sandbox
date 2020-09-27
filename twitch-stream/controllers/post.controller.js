@@ -1,5 +1,7 @@
 const db = require('../models');
+const User = db.users;
 const Post = db.posts;
+const Tag = db.tags;
 
 // create new post
 export const createPost = async (req, res) => {
@@ -21,18 +23,32 @@ export const createPost = async (req, res) => {
 };
 
 // find the post for given post id
-exports.findPostById = async (req, res) => {
+export const findPostById = async (req, res) => {
   try {
     const postId = req.params.id;
-    const post = await Post.findbyPk(postId, {
-      include: ['user'],
+    const post = await Post.findByPk(postId, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email', 'phoneNumber'],
+        },
+        {
+          model: Tag,
+          as: 'tags',
+          attributes: ['id', 'name'],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
     });
 
     res.json({ post });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Error in creating post.',
+      message: 'Error in fetching post.',
     });
   }
 };
