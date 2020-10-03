@@ -3,8 +3,8 @@ import * as express from 'express';
 import { FindOptions } from 'sequelize';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from 'models/user.model';
-import { AuthInterface } from 'types';
+import { User } from '../models/user.model';
+import { AuthInterface } from '../types';
 
 export class AuthController {
   /**

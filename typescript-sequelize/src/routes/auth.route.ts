@@ -7,4 +7,4 @@ export const router: Router = Router();
 /**
  * @public
  */
-router.get('/login', authController.login);
+router.post('/login', authController.login);

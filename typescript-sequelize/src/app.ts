@@ -1,9 +1,9 @@
 import cors from 'cors';
-import express from 'express';
 import * as dotenv from 'dotenv';
+import express from 'express';
 import { databaseGenerate } from './config/database';
-import { router as userRoutes } from './routes/user.route';
 import { router as authRoutes } from './routes/auth.route';
+import { router as userRoutes } from './routes/user.route';
 
 dotenv.config();
 

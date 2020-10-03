@@ -1,4 +1,5 @@
 import { userController } from '../controllers/user.controller';
+import { checkJwt } from '../middlewares/auth.middleware';
 
 import { Router } from 'express';
 
@@ -7,19 +8,19 @@ export const router: Router = Router();
 /**
  * @private
  */
-router.get('/', userController.getAll);
+router.get('/', [checkJwt], userController.getAll);
 
 /**
- * @private
+ * @public
  */
 router.post('/', userController.createOne);
 
 /**
  * @private
  */
-router.put('/:id', userController.update);
+router.put('/:id', [checkJwt], userController.update);
 
 /**
  * @private
  */
-router.put('/:id', userController.delete);
+router.put('/:id', [checkJwt], userController.delete);
