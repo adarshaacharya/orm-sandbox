@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { UpdateOptions, DestroyOptions } from 'sequelize';
 import { User } from '../models/user.model';
 import { UserInterface } from '../types';
@@ -11,7 +11,7 @@ export class UserController {
    * @acces private
    * @async
    */
-  public async getAll(req: Request, res: Response) {
+  public async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const users: Array<User> = await User.findAll<User>({
         attributes: {
@@ -20,7 +20,8 @@ export class UserController {
       });
       res.status(200).json(users);
     } catch (error) {
-      res.status(500).json(error);
+      // res.status(500).json(error);
+      next();
     }
   }
 
@@ -31,7 +32,7 @@ export class UserController {
    * @acces public
    * @async
    */
-  public async createOne(req: Request, res: Response) {
+  public async createOne(req: Request, res: Response, next: NextFunction) {
     try {
       const params: UserInterface = req.body;
       params.passwordHash = bcrypt.hashSync(params.password, 8);
@@ -41,7 +42,8 @@ export class UserController {
         ? res.status(200).json({ data: 'User create with success' })
         : res.status(404).json({ errors: ["User doesn't create"] });
     } catch (error) {
-      return res.status(500).json(error);
+      // return res.status(500).json(error);
+      next();
     }
   }
 
@@ -51,7 +53,7 @@ export class UserController {
    * @route /users/:id
    * @acces private
    */
-  public async show(req: Request, res: Response) {
+  public async show(req: Request, res: Response, next: NextFunction) {
     try {
       const userId: number = parseInt(req.params.id, 10);
 
@@ -63,7 +65,7 @@ export class UserController {
         ? res.json(user)
         : res.status(404).json({ errors: ['User not found'] });
     } catch (error) {
-      return res.status(500).json(error);
+      next(error);
     }
   }
 
@@ -73,7 +75,7 @@ export class UserController {
    * @route /users
    * @acces private
    */
-  public async update(req: Request, res: Response) {
+  public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const userId: number = parseInt(req.params.id, 10);
       const params: UserInterface = req.body;
@@ -94,7 +96,8 @@ export class UserController {
 
       return res.status(404).json({ errors: ['User not found'] });
     } catch (error) {
-      return res.status(500).json(error);
+      // return res.status(500).json(error);
+      next();
     }
   }
 
@@ -104,7 +107,7 @@ export class UserController {
    * @route /users/:id
    * @acces private
    */
-  public async delete(req: Request, res: Response) {
+  public async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const userId: number = parseInt(req.params.id, 10);
 
@@ -118,7 +121,8 @@ export class UserController {
       }
       return res.status(404).json({ errors: ['User not found'] });
     } catch (error) {
-      return res.status(500).json(error);
+      // return res.status(500).json(error);
+      next();
     }
   }
 }

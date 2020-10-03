@@ -18,6 +18,11 @@ router.post('/', userController.createOne);
 /**
  * @private
  */
+router.get('/:id', [checkJwt], userController.show);
+
+/**
+ * @private
+ */
 router.put('/:id', [checkJwt], userController.update);
 
 /**
