@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../../config/database';
+import { Groups } from '../groups/groups.model';
 
 export class Students extends Model {
   public static readonly tableName: string = 'students';
@@ -21,6 +22,7 @@ export class Students extends Model {
         name: DataTypes.STRING(),
         email: DataTypes.STRING(),
         password: DataTypes.STRING(),
+        groupId: DataTypes.INTEGER(),
       },
       {
         sequelize,
@@ -31,3 +33,13 @@ export class Students extends Model {
 }
 
 Students.prepareInit(sequelize);
+
+Students.belongsTo(Groups, {
+  foreignKey: 'groupId',
+  as: 'group',
+});
+
+Groups.hasMany(Students, {
+  foreignKey: 'groupId',
+  as: 'students',
+});

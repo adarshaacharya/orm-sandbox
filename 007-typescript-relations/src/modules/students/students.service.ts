@@ -9,6 +9,7 @@ interface IStudentsData {
   email: string;
   password: string;
   name: string;
+  groupId: number;
 }
 
 class StudentsService {
